@@ -1,11 +1,22 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 
-export default function CategoryGrid({ itemData }) {
+export default function CategoryGrid({ itemData,pressFood }) {
   return (
     <View style={styles.container}>
-      <Pressable  style={({pressed})=>[styles.button, pressed  && styles.buttonPressed]}>
-        <View style={[styles.titleContainer,{backgroundColor:itemData.item.color}]}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.button,
+          pressed && styles.buttonPressed,
+        ]}
+        onPress={pressFood}
+      >
+        <View
+          style={[
+            styles.titleContainer,
+            { backgroundColor: itemData.item.color },
+          ]}
+        >
           <Text style={styles.title}>{itemData.item.title}</Text>
         </View>
       </Pressable>
@@ -24,21 +35,22 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    backgroundColor:"white"
+    backgroundColor: "white",
   },
   button: {
     flex: 1,
   },
   titleContainer: {
     flex: 1,
-    justifyContent:"center",
-    alignItems:"center",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 20,
   },
-  title:{
-    fontSize:18,
-    fontWeight:"bold"
-  },buttonPressed:{
-    opacity:0.5
-  }
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  buttonPressed: {
+    opacity: 0.5,
+  },
 });

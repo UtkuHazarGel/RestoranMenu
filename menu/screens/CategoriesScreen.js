@@ -3,11 +3,14 @@ import React from "react";
 import { CATEGORIES } from "../data/dummy-data";
 import CategoryGrid from "../components/CategoryGrid";
 
-export default function CategoriesScreen() {
+export default function CategoriesScreen({navigation}) {
   function renderCategoryItem(itemData) {
+    function pressHandler(){
+        navigation.navigate("FoodOverview",{categoryId:itemData.item.id})
+    }
     console.log(itemData.item.title);
     return(
-        <CategoryGrid title={itemData.item.title} itemData={itemData}/>
+        <CategoryGrid pressFood={pressHandler} title={itemData.item.title} itemData={itemData}/>
     )
     
     
@@ -25,5 +28,5 @@ export default function CategoriesScreen() {
 }
 
 const styles = StyleSheet.create({container:{
-    marginTop:25
+   
 }});
