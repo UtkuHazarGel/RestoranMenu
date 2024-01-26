@@ -27,7 +27,13 @@ export default function App() {
           }}
         />
         <Stack.Screen name="FoodOverview" component={FoodOverviewScreen} />
-        <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
+        <Stack.Screen
+          name="FoodDetails"
+          component={FoodDetailsScreen}
+          options={{
+            title: "İçerik",
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
