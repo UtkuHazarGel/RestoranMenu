@@ -11,22 +11,31 @@ import { FOODS } from "../data/dummy-data";
 import FoodIngredients from "../components/FoodIngredients";
 import { AntDesign } from "@expo/vector-icons";
 import { FavoriteContext } from "../store/favoriteContext";
+import { useSelector,useDispatch } from "react-redux";
+import { addFavorite,removeFavorite } from "../store/redux/favorites";
+
 
 export default function FoodDetailsScreen({ route, navigation }) {
-  const favoriteFoodContext = useContext(FavoriteContext);
+  const FavoriteFoodsIds = useSelector((state)=>state.favoriteFoods.ids)
+  // const favoriteFoodContext = useContext(FavoriteContext);
+  const dispatch = useDispatch()
   const foodId = route.params.foodId;
   const selectedFood = FOODS.find((food) => food.id === foodId);
-  const foodIsFavorite = favoriteFoodContext.ids.includes(foodId);
+  // const foodIsFavorite = favoriteFoodContext.ids.includes(foodId);
+  const foodIsFavorite = FavoriteFoodsIds.includes(foodId);
   const pressHandler = () => {
     console.log("tıklandı");
   };
 
   function changheFavorite() {
     if (foodIsFavorite) {
-      favoriteFoodContext.removeFavorite(foodId);
+      // favoriteFoodContext.removeFavorite(foodId);
+      dispatch(removeFavorite({id:foodId}))
     }
     else{
-      favoriteFoodContext.addFavorite(foodId);
+      dispatch(addFavorite({id:foodId}))
+
+      // favoriteFoodContext.addFavorite(foodId);
     }
   }
   useLayoutEffect(() => {

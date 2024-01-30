@@ -12,6 +12,8 @@ import FavoritesScreen from "./screens/FavoritesScreen";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import FavoritesContextProvider from "./store/favoriteContext";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -50,7 +52,8 @@ function DrawerNavigator() {
 export default function App() {
   return (
     <NavigationContainer>
-      <FavoritesContextProvider>
+      {/* <FavoritesContextProvider> */}
+      <Provider store={store}>
         <Stack.Navigator
           screenOptions={{
             headerStyle: { backgroundColor: "blue" },
@@ -81,7 +84,8 @@ export default function App() {
             }}
           />
         </Stack.Navigator>
-      </FavoritesContextProvider>
+      </Provider>
+      {/* </FavoritesContextProvider> */}
     </NavigationContainer>
   );
 }
