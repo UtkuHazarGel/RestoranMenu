@@ -6,28 +6,48 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useContext } from "react";
 import { FOODS } from "../data/dummy-data";
 import FoodIngredients from "../components/FoodIngredients";
 import { AntDesign } from "@expo/vector-icons";
+import { FavoriteContext } from "../store/favoriteContext";
 
 export default function FoodDetailsScreen({ route, navigation }) {
+  const favoriteFoodContext = useContext(FavoriteContext);
   const foodId = route.params.foodId;
   const selectedFood = FOODS.find((food) => food.id === foodId);
-  const pressHandler = () =>{
-console.log("tıklandı")
+  const foodIsFavorite = favoriteFoodContext.ids.includes(foodId);
+  const pressHandler = () => {
+    console.log("tıklandı");
+  };
+
+  function changheFavorite() {
+    if (foodIsFavorite) {
+      favoriteFoodContext.removeFavorite(foodId);
+    }
+    else{
+      favoriteFoodContext.addFavorite(foodId);
+    }
   }
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable onPress={pressHandler} style={({pressed})=>(pressed && styles.pressed)}>
-            <AntDesign name="star" size={24} color="white" />
+          <Pressable
+            onPress={pressHandler}
+            style={({ pressed }) => pressed && styles.pressed}
+          >
+            <AntDesign
+              name={foodIsFavorite ? "star" : "staro"}
+              size={24}
+              color="white"
+              onPress={changheFavorite}
+            />
           </Pressable>
         );
       },
     });
-  }, [navigation]);
+  }, [navigation, changheFavorite]);
 
   return (
     <ScrollView style={styles.rootContainer}>
@@ -90,5 +110,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 5,
   },
-  pressed:{opacity:0.5}
+  pressed: { opacity: 0.5 },
 });
